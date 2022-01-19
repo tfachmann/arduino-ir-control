@@ -1,6 +1,7 @@
 # Arduino IR Control
 
-This simple project consists of two parts
+I use this script to change the brightness of my external monitor through an IR remote.
+This simple project is not programmed in a general fashion and consists of two parts.
 
 ## Arduino IR Receiver
 
@@ -17,6 +18,8 @@ mkdir build
 cmake -D CMAKE_TOOLCHAIN_FILE=/<path-to>/Arduino-CMake-Toolchain/Arduino-toolchain.cmake -D ARDUINO_BOARD_OPTIONS_FILE=/<path-to>/arduino-ir-control/BoardOptions.cmake ..
 make SERIAL_PORT=/dev/ttyACM0 upload-arduino_ir_control
 ```
+
+---
 
 ## Python Watcher
 

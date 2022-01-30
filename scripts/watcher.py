@@ -11,9 +11,9 @@ import serial
 
 bytes_dict = {
     b"F00FFF00": "up",
-    b"F609FF00": "up",
+    b"F609FF00": "volume_up",
     b"E31CFF00": "down",
-    b"E21DFF00": "down",
+    b"E21DFF00": "volume_down",
     b"E817FF00": 10,
     b"ED12FF00": 20,
     b"E916FF00": 30,
@@ -69,6 +69,12 @@ class SerialWatcher:
                 elif decoded == "down":
                     self.cur_brightness -= delta
                     subprocess.call(["/usr/local/bin/brightness_monitor_external", str(self.cur_brightness)])
+                elif decoded == "volume_up":
+                    subprocess.call(["lmc", "up", "5"])
+                    subprocess.call(["play", "-q", "-n", "synth", "0.1", "sin", "600"])
+                elif decoded == "volume_down":
+                    subprocess.call(["lmc", "down", "5"])
+                    subprocess.call(["play", "-q", "-n", "synth", "0.1", "sin", "400"])
             else:
                 log.debug(f"Received unknown: {data}")
 

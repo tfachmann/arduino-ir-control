@@ -76,4 +76,4 @@ sudo systemctl start arduino_ir_watcher.service
 journalctl -b -u arduino_ir_watcher
 ```
 
-Note: it might not find packages like `pyserial` if you have installed it *locally*, as this script is now executed by the user *root*, make sure `pyserial` and `systemd` are installed system-wide or use a virtual environment.
+Note: it might not find packages like `pyserial` if you have installed it *locally*, as this script is now executed by the user *root*, make sure `pyserial` and `systemd-python` are installed system-wide or use a virtual environment.

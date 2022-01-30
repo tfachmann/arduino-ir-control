@@ -45,7 +45,8 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=<path-to/arduino-ir-control/scripts/watcher.py> --systemd
-Restart=on-abort
+Restart=always
+RestartSec=15s
 
 [Install]
 WantedBy=multi-user.target

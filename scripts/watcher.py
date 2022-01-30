@@ -61,14 +61,14 @@ class SerialWatcher:
                 decoded = bytes_dict[known_bytes]
                 log.info(f"Received: {data} => {decoded}")
                 if type(decoded) == int:
-                    subprocess.call(["brightness_monitor_external", str(decoded)])
+                    subprocess.call(["/usr/local/bin/brightness_monitor_external", str(decoded)])
                     self.cur_brightness = decoded
                 elif decoded == "up":
                     self.cur_brightness += delta
-                    subprocess.call(["brightness_monitor_external", str(self.cur_brightness)])
+                    subprocess.call(["/usr/local/bin/brightness_monitor_external", str(self.cur_brightness)])
                 elif decoded == "down":
                     self.cur_brightness -= delta
-                    subprocess.call(["brightness_monitor_external", str(self.cur_brightness)])
+                    subprocess.call(["/usr/local/bin/brightness_monitor_external", str(self.cur_brightness)])
             else:
                 log.debug(f"Received unknown: {data}")
 

@@ -27,7 +27,53 @@ This python watcher located in `script/watcher.py` is not meant to be general, b
 
 ### Usage
 
+#### Simple Tests
+
 ```
-python scripts/watcher.py
+python scripts/watcher.py --info=DEBUG
 ```
 
+#### As Systemd Unit
+
+##### Create a unit file (`/etc/systemd/system/arduino_ir_watcher.service`) 
+
+```
+[Unit]
+Description=Serial port watcher to execute commands based on ir commands
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=<path-to/arduino-ir-control/scripts/watcher.py> --systemd
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+```
+
+##### Enable
+
+```
+sudo systemctl enable arduino_ir_watcher.service
+```
+
+On the next restart, the script will be executed.
+
+---
+
+To test it right away, follow the next steps.
+
+##### Start
+
+```
+sudo systemctl daemon-reload
+sudo systemctl start arduino_ir_watcher.service
+```
+
+##### Debug 
+
+```
+journalctl -b -u arduino_ir_watcher
+```
+
+Note: it might not find packages like `pyserial` if you have installed it *locally*, as this script is now executed by the user *root*, make sure `pyserial` and `systemd` are installed system-wide or use a virtual environment.
